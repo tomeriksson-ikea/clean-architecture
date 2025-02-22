@@ -1,4 +1,4 @@
-import { IStudent } from "./student";
+import { IStudent } from "../Student/Student.interface";
 
 export interface IExchangeStudent extends IStudent {
   readonly originSchool: string;

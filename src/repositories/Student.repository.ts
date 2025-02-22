@@ -1,5 +1,6 @@
 import { MongoClient } from "mongodb";
-import { IStudent, IStudentRepository } from "../interfaces";
+import { IStudentRepository } from "./Student.repository.interface";
+import { IStudent } from "../entities/Student/Student.interface";
 
 export class StudentRepository implements IStudentRepository {
   private readonly uri = "mongodb://localhost:27017"; // Change if needed

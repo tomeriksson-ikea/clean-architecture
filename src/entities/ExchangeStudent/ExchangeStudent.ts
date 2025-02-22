@@ -1,6 +1,6 @@
-import { IExchangeStudent } from "../interfaces";
-import { Student } from "./Student";
-import { StudentBuilder } from "../builders";
+import { IExchangeStudent } from "./ExchangeStudent.interface";
+import { Student } from "../Student/Student";
+import { StudentBuilder } from "../Student/Student.builder";
 
 export class ExchangeStudent extends Student implements IExchangeStudent {
   readonly originSchool: string;

@@ -1,1 +1,1 @@
-export * from "./BuilderError";
+export * from "./BadRequestError";

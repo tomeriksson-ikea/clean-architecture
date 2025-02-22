@@ -1,4 +1,4 @@
-import { IStudent } from "./student";
+import { IStudent } from "../entities/Student/Student.interface";
 
 export interface IStudentInteractor {
   getStudent(id: string): Promise<IStudent | undefined>;

@@ -1,9 +1,7 @@
-import {
-  IStudent,
-  IStudentInteractor,
-  IStudentRepository,
-} from "../interfaces";
-import { StudentBuilder } from "../builders";
+import { IStudentInteractor } from "./Student.interactor.interface";
+import { IStudentRepository } from "../repositories/Student.repository.interface";
+import { IStudent } from "../entities/Student/Student.interface";
+import { StudentBuilder } from "../entities/Student/Student.builder";
 
 export class StudentInteractor implements IStudentInteractor {
   private readonly repository: IStudentRepository;

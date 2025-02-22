@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { IStudentInteractor } from "../interfaces";
+import { IStudentInteractor } from "../interactors/Student.interactor.interface";
 
 export class StudentController {
   private readonly interactor: IStudentInteractor;
@@ -15,7 +15,7 @@ export class StudentController {
       const student = await this.interactor.getStudent(id);
 
       if (student) {
-        res.status(200).send(student);
+        res.status(200).json(student);
       } else {
         res.status(404).send("Student not found");
       }
@@ -30,7 +30,7 @@ export class StudentController {
 
       const student = await this.interactor.addStudent(studentData);
 
-      res.status(201).send(student);
+      res.status(201).json(student);
     } catch (e) {
       next(e);
     }

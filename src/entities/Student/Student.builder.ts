@@ -1,7 +1,7 @@
-import { Student } from "../entities";
-import { BuilderError } from "../utils/errors";
-import { ExchangeStudent } from "../entities/ExchangeStudent";
-import { IStudent } from "../interfaces";
+import { ExchangeStudent } from "../ExchangeStudent/ExchangeStudent";
+import { Student } from "./Student";
+import { IStudent } from "./Student.interface";
+import { BadUserInputError } from "../../utils/errors";
 
 export class StudentBuilder {
   private id: string | undefined;
@@ -52,7 +52,7 @@ export class StudentBuilder {
       }
       return new Student(this);
     } catch (e) {
-      throw new BuilderError(
+      throw new BadUserInputError(
         `Could not build student due to: ${(e as Error).message}`,
       );
     }

@@ -1,12 +1,6 @@
-import express, { Router } from "express";
-import { StudentController } from "./controllers";
-import { StudentInteractor } from "./interactors";
-import { StudentRepository } from "./repositories";
-import { errorHandlerMiddleware } from "./middlewares";
-
-const studentRepository = new StudentRepository();
-const studentInteractor = new StudentInteractor(studentRepository);
-const studentController = new StudentController(studentInteractor);
+import express from "express";
+import { setupClassesRouter, setupStudentsRouter } from "./routes";
+import { errorHandlerMiddleware } from "./middlewares/error-handler.middleware";
 
 const app = express();
 
@@ -14,12 +8,11 @@ const port = 3000;
 
 app.use(express.json());
 
-const studentRouter = Router();
+const studentsRouter = setupStudentsRouter();
+const classesRouter = setupClassesRouter();
 
-studentRouter.get("/:id", studentController.getStudent);
-studentRouter.post("/", studentController.addStudent);
-
-app.use("/students", studentRouter);
+app.use("/students", studentsRouter);
+app.use("/classes", classesRouter);
 
 app.use(errorHandlerMiddleware);
 

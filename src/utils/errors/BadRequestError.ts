@@ -1,4 +1,4 @@
-export class BuilderError extends Error {
+export class BadUserInputError extends Error {
   constructor(message: string) {
     super(message);
   }

@@ -1,5 +1,5 @@
 import { ErrorRequestHandler } from "express";
-import { BuilderError } from "../utils/errors";
+import { BadUserInputError } from "../utils/errors";
 
 export const errorHandlerMiddleware: ErrorRequestHandler = (
   error,
@@ -7,7 +7,7 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (
   res,
   next,
 ) => {
-  if (error instanceof BuilderError) {
+  if (error instanceof BadUserInputError) {
     res.status(400).send(error.message);
     return;
   }
