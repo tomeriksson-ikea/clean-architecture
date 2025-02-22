@@ -21,7 +21,8 @@ export class StudentInteractor implements IStudentInteractor {
       .generateId()
       .setName(studentData?.name)
       .setEmail(studentData?.email)
-      .buildStudent();
+      .setOriginSchool(studentData?.originSchool)
+      .build();
 
     await this.repository.addStudent(student);
     return student;

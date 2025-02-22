@@ -1,10 +1,11 @@
 import { StudentBuilder } from "../builders";
 import { validEmailRegex } from "../utils/regex";
+import { IStudent } from "../interfaces";
 
-export class Student {
-  private readonly id: string;
-  private readonly name: string;
-  private readonly email: string;
+export class Student implements IStudent {
+  readonly id: string;
+  name: string;
+  email: string;
 
   constructor(builder: StudentBuilder) {
     const id = builder.getId();

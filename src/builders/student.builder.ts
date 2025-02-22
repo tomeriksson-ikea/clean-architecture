@@ -1,10 +1,13 @@
 import { Student } from "../entities";
 import { BuilderError } from "../utils/errors";
+import { ExchangeStudent } from "../entities/ExchangeStudent";
+import { IStudent } from "../interfaces";
 
 export class StudentBuilder {
   private id: string | undefined;
   private name: string | undefined;
   private email: string | undefined;
+  private originSchool: string | undefined;
 
   generateId(): this {
     this.id = crypto.randomUUID();
@@ -33,8 +36,20 @@ export class StudentBuilder {
     return this.email;
   }
 
-  buildStudent(): Student {
+  setOriginSchool(originSchool: string | undefined): this {
+    this.originSchool = originSchool;
+    return this;
+  }
+
+  getOriginSchool(): string | undefined {
+    return this.originSchool;
+  }
+
+  build(): IStudent {
     try {
+      if (this.originSchool) {
+        return new ExchangeStudent(this);
+      }
       return new Student(this);
     } catch (e) {
       throw new BuilderError(

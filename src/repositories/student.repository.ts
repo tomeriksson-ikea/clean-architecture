@@ -15,7 +15,7 @@ export class StudentRepository implements IStudentRepository {
       .collection("students")
       .findOne({ id }, { projection: { _id: 0 } });
 
-    return doc as IStudent | undefined;
+    return doc ? (doc as unknown as IStudent) : undefined;
   }
 
   async addStudent(student: IStudent): Promise<IStudent> {
