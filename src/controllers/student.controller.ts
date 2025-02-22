@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { RequestHandler } from "express";
 import { IStudentInteractor } from "../interfaces";
 
 export class StudentController {
@@ -8,11 +8,7 @@ export class StudentController {
     this.interactor = interactor;
   }
 
-  async getStudent(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<void> {
+  public getStudent: RequestHandler = async (req, res, next) => {
     try {
       const id = req.params.id;
 
@@ -26,5 +22,17 @@ export class StudentController {
     } catch (e) {
       next(e);
     }
-  }
+  };
+
+  public addStudent: RequestHandler = async (req, res, next) => {
+    try {
+      const studentData = req.body;
+
+      const student = await this.interactor.addStudent(studentData);
+
+      res.status(201).send(student);
+    } catch (e) {
+      next(e);
+    }
+  };
 }
