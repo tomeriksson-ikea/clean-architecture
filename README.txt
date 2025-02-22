@@ -7,9 +7,13 @@ Hope you like it.
 #Usage:
 
 1. To start db instance: 
-```docker-compose up --build -d```
+```
+docker-compose up --build -d
+```
 
 2. To start dev server:
-```npm run dev```
+```
+npm run dev
+```
 
 To send some sample requests, run some of the requests from ```test-requests.http```
