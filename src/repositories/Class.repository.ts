@@ -5,11 +5,10 @@ import { NotFoundError } from "../utils/errors/NotFoundError";
 import { Class } from "../entities/Class/Class";
 
 export class ClassRepository implements IClassRepository {
-  private readonly uri = "mongodb://localhost:27017"; // Change if needed
   private readonly client: MongoClient;
 
-  constructor() {
-    this.client = new MongoClient(this.uri);
+  constructor(mongodbClient: MongoClient) {
+    this.client = mongodbClient;
   }
 
   async addClass(_class: IClass): Promise<IClass> {

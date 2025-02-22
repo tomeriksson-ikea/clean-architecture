@@ -45,11 +45,11 @@ export class Class implements IClass {
     return new Class(code, description, name, enrolledStudents);
   }
 
-  static deserialize(obj: any): Class {
-    return new Class(obj.code, obj.name, obj.description, obj.enrolledStudents);
-  }
-
   enrollStudent(student: IStudent): void {
     this.enrolledStudents.push(student);
+  }
+
+  static deserialize(obj: any): Class {
+    return new Class(obj.code, obj.name, obj.description, obj.enrolledStudents);
   }
 }

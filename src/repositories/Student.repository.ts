@@ -4,11 +4,10 @@ import { IStudent } from "../entities/Student/Student.interface";
 import { NotFoundError } from "../utils/errors/NotFoundError";
 
 export class StudentRepository implements IStudentRepository {
-  private readonly uri = "mongodb://localhost:27017"; // Change if needed
   private readonly client: MongoClient;
 
-  constructor() {
-    this.client = new MongoClient(this.uri);
+  constructor(mongodbClient: MongoClient) {
+    this.client = mongodbClient;
   }
 
   async getStudent(id: string): Promise<IStudent> {
