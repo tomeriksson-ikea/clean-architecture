@@ -1,5 +1,6 @@
 import { ErrorRequestHandler } from "express";
 import { BadUserInputError } from "../utils/errors";
+import { NotFoundError } from "../utils/errors/NotFoundError";
 
 export const errorHandlerMiddleware: ErrorRequestHandler = (
   error,
@@ -9,6 +10,11 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (
 ) => {
   if (error instanceof BadUserInputError) {
     res.status(400).send(error.message);
+    return;
+  }
+
+  if (error instanceof NotFoundError) {
+    res.status(404).send(error.message);
     return;
   }
 

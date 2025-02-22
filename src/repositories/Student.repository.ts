@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 import { IStudentRepository } from "./Student.repository.interface";
 import { IStudent } from "../entities/Student/Student.interface";
+import { NotFoundError } from "../utils/errors/NotFoundError";
 
 export class StudentRepository implements IStudentRepository {
   private readonly uri = "mongodb://localhost:27017"; // Change if needed
@@ -10,13 +11,17 @@ export class StudentRepository implements IStudentRepository {
     this.client = new MongoClient(this.uri);
   }
 
-  async getStudent(id: string): Promise<IStudent | undefined> {
+  async getStudent(id: string): Promise<IStudent> {
     const doc = await this.client
       .db("school")
       .collection("students")
       .findOne({ id }, { projection: { _id: 0 } });
 
-    return doc ? (doc as unknown as IStudent) : undefined;
+    if (doc) {
+      return doc as unknown as IStudent;
+    } else {
+      throw new NotFoundError(`Student with id ${id} not found`);
+    }
   }
 
   async addStudent(student: IStudent): Promise<IStudent> {

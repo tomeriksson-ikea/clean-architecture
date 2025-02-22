@@ -1,17 +1,32 @@
 import { IClass } from "./Class.interface";
 import { validClassCodeRegex } from "../../utils/regex";
 import { BadUserInputError } from "../../utils/errors";
+import { IStudent } from "../Student/Student.interface";
 
 export class Class implements IClass {
   readonly code: string;
   description: string;
   name: string;
 
-  constructor(
+  private readonly enrolledStudents: IStudent[];
+
+  private constructor(
+    code: string,
+    description: string,
+    name: string,
+    enrolledStudents: IStudent[],
+  ) {
+    this.code = code;
+    this.description = description;
+    this.name = name;
+    this.enrolledStudents = enrolledStudents;
+  }
+
+  static create(
     code: string | undefined,
     description: string | undefined,
     name: string | undefined,
-  ) {
+  ): Class {
     if (typeof code !== "string") {
       throw new BadUserInputError("Class code must be a string");
     }
@@ -25,8 +40,16 @@ export class Class implements IClass {
       throw new BadUserInputError("Class name must be a string");
     }
 
-    this.code = code;
-    this.description = description;
-    this.name = name;
+    const enrolledStudents: IStudent[] = [];
+
+    return new Class(code, description, name, enrolledStudents);
+  }
+
+  static deserialize(obj: any): Class {
+    return new Class(obj.code, obj.name, obj.description, obj.enrolledStudents);
+  }
+
+  enrollStudent(student: IStudent): void {
+    this.enrolledStudents.push(student);
   }
 }

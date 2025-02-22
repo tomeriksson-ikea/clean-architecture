@@ -19,4 +19,20 @@ export class ClassController {
       next(e);
     }
   };
+
+  public enrollStudentInClass: RequestHandler = async (req, res, next) => {
+    try {
+      const classCode = req.params.code;
+      const studentId = req.body.id;
+
+      const classEnrollment = await this.interactor.enrollStudentInClass(
+        classCode,
+        studentId,
+      );
+
+      res.status(200).json(classEnrollment);
+    } catch (e) {
+      next(e);
+    }
+  };
 }

@@ -68,3 +68,27 @@ Content-Type: application/json
   "name": "Introduction to bureaucracy",
   "description": "Initial course in the company onboarding series."
 }
+
+### Enroll students in class
+PUT http://localhost:3000/classes/AAA-111/students
+Content-Type: application/json
+
+{
+  "id": "c78351e1-f174-437e-8af4-7ffc30b66bde"
+}
+
+### Enroll students in class no student
+PUT http://localhost:3000/classes/AAA-111/students
+Content-Type: application/json
+
+{
+  "id": "c78351e1-f174-437e-8af4-00000"
+}
+
+### Enroll students in class no class
+PUT http://localhost:3000/classes/BBB-111/students
+Content-Type: application/json
+
+{
+  "id": "c78351e1-f174-437e-8af4-7ffc30b66bde"
+}

@@ -2,15 +2,21 @@ import { Router } from "express";
 import { ClassController } from "../controllers/class.controller";
 import { ClassInteractor } from "../interactors/Class.interactor";
 import { ClassRepository } from "../repositories/Class.repository";
+import { StudentRepository } from "../repositories/Student.repository";
 
 export const setupClassesRouter = (): Router => {
-  const router = Router();
+  const classesRouter = Router();
 
   const classRepository = new ClassRepository();
-  const classInteractor = new ClassInteractor(classRepository);
+  const studentRepository = new StudentRepository();
+  const classInteractor = new ClassInteractor(
+    classRepository,
+    studentRepository,
+  );
   const classController = new ClassController(classInteractor);
 
-  router.post("/", classController.addClass);
+  classesRouter.post("/", classController.addClass);
+  classesRouter.put("/:code/students", classController.enrollStudentInClass);
 
-  return router;
+  return classesRouter;
 };
