@@ -1,0 +1,70 @@
+
+# Get a student
+GET http://localhost:3000/students/123
+Accept: application/json
+
+###
+# Get incorrect student
+GET http://localhost:3000/students/not-found
+Accept: application/json
+
+
+### Create a new student
+POST http://localhost:3000/students
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "tom.eriksson@email.com"
+}
+
+
+### Create a new exchange student
+POST http://localhost:3000/students
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "tom.eriksson@email.com",
+  "originSchool": "Stanford University"
+}
+
+### Create a new exchange student no university error
+POST http://localhost:3000/students
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "tom.eriksson@email.com",
+  "originSchool": "Stanford"
+}
+
+### Create a new student bad email
+POST http://localhost:3000/students
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "tom.eriksson@email"
+}
+
+### Create a new class
+POST http://localhost:3000/classes
+Content-Type: application/json
+
+{
+  "code": "AAA-111",
+  "name": "Introduction to bureaucracy",
+  "description": "Initial course in the company onboarding series."
+}
+
+
+### Create a new class code error
+POST http://localhost:3000/classes
+Content-Type: application/json
+
+{
+  "code": "Introduction to bureaucracy",
+  "name": "Introduction to bureaucracy",
+  "description": "Initial course in the company onboarding series."
+}
