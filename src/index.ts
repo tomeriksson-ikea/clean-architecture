@@ -9,30 +9,38 @@ import { StudentInteractor } from "./interactors/Student.interactor";
 import { StudentController } from "./controllers";
 import { MongoClient } from "mongodb";
 
-const mongodbConnectionString = "mongodb://localhost:27017";
-const mongodbClient = new MongoClient(mongodbConnectionString);
+const run = async () => {
+  const mongodbConnectionString = "mongodb://localhost:27017";
+  const mongodbClient = new MongoClient(mongodbConnectionString);
+  await mongodbClient.connect();
 
-const classRepository = new ClassRepository(mongodbClient);
-const studentRepository = new StudentRepository(mongodbClient);
+  const classRepository = new ClassRepository(mongodbClient);
+  const studentRepository = new StudentRepository(mongodbClient);
 
-const classInteractor = new ClassInteractor(classRepository, studentRepository);
-const studentInteractor = new StudentInteractor(studentRepository);
+  const classInteractor = new ClassInteractor(
+    classRepository,
+    studentRepository,
+  );
+  const studentInteractor = new StudentInteractor(studentRepository);
 
-const classController = new ClassController(classInteractor);
-const studentController = new StudentController(studentInteractor);
+  const classController = new ClassController(classInteractor);
+  const studentController = new StudentController(studentInteractor);
 
-const studentsRouter = setupStudentsRouter(studentController);
-const classesRouter = setupClassesRouter(classController);
+  const studentsRouter = setupStudentsRouter(studentController);
+  const classesRouter = setupClassesRouter(classController);
 
-const app = express();
-const port = 3000;
-app.use(express.json());
+  const app = express();
+  const port = 3000;
+  app.use(express.json());
 
-app.use("/students", studentsRouter);
-app.use("/classes", classesRouter);
+  app.use("/students", studentsRouter);
+  app.use("/classes", classesRouter);
 
-app.use(errorHandler);
+  app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  app.listen(port, () => {
+    console.log(`School app started and listening on port ${port}`);
+  });
+};
+
+run();
